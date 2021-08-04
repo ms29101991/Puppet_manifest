@@ -1,4 +1,4 @@
-# Puppet_manifest
+
 # Install the Apache HTTP Server:
  package{'package':
    name   =>  'httpd'
