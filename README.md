@@ -1,19 +1,19 @@
 
-# Install the Apache HTTP Server:
+
  package{'package':
    name   =>  'httpd'
    ensure => 'installed',
   }
   
-  # Edit the main Apache configuration file to adjust the resource use settings.
+
   
   $myservice_content =  
-            StartServers        4
+            'StartServers        4
             MinSpareServers     20
             MaxSpareServers     40
             MaxClients          200
             MaxRequestsPerChild 4500
-        </IfModule>
+        </IfModule>'         
 		
   file{'/etc/httpd/conf/httpd.conf':
     ensure  => present,
@@ -21,16 +21,16 @@
   }
  
  
- # Configure Apache for Virtual Hosting
+
  
-  $myapache_content = info = <VirtualHost *:80>
+  $myapache_content = '<VirtualHost *:80>
              ServerAdmin admin@example.org
              ServerName example.org
              ServerAlias www.example.org
              DocumentRoot /srv/www/example.org/public_html/
              ErrorLog /srv/www/example.org/logs/error.log
              CustomLog /srv/www/example.org/logs/access.log combined
-        </VirtualHost>
+        </VirtualHost>'
 		
 	 file{ '/etc/httpd/conf.d/vhost.conf':
     ensure  => present,
@@ -38,17 +38,19 @@
   }	
   
   
-  # Create the directories referenced above:
+
   
   file { ' /srv/www/example.org/public_html':
-    ensure => 'directory',
+    ensure  => 'directory',
+    recurse => 'true'
   }
   
-  file { ' /srv/www/example.org/logs':
+  file { '/srv/www/example.org/logs':
     ensure => 'directory',
+    recurse => 'true'
   }
   
-  # Start Apache:
+ 
   
   service { 'httpd':
      ensure => 'restart',
