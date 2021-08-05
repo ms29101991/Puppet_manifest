@@ -2,15 +2,15 @@ init.pp ::---
 class appx {
 
 contain appx::config_file
-contain appx::service
+contain appx::package
 }
 
 config_file.pp
 
-class appx::config_file ($String $mypackage
-  $String $ensure){
-    package {'$mypackage':
-      name => '$mypackage',
+class appx::config_file ($String $package
+   $ensure){
+    package {'$package':
+      name => '$package',
       ensure => $ensure,
 }
 file{ '/etc/init.d/appX':
@@ -22,7 +22,7 @@ file{ '/etc/init.d/appX':
 
 service.pp
 
-class appx::service ($String $service $string $ensure) {
+class appx::service ($String $service $ensure) {
   service { '$service':
     ensure => $ensure,
 	enable => true,
@@ -31,10 +31,10 @@ class appx::service ($String $service $string $ensure) {
 
 common.yml
 
-appx::config_file:mypackage:appx
+appx::config_file:package:appx
 appx::config_file:ensure:1.0
-appx:service:service:appx
-appx:service:ensure:on
+appx:package:service:appx
+appx:package:ensure:on
 
 
 
