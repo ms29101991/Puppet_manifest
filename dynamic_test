@@ -1,0 +1,40 @@
+nit.pp ::---
+class appx {
+
+contain appx::config_file
+contain appx::service
+}
+
+config_file.pp
+
+class appx::config_file ($String $mypackage
+  $String $ensure){
+    package {'$mypackage':
+      name => '$mypackage',
+      ensure => $ensure,
+}
+file{ '/etc/init.d/appX':
+    ensure  => present,
+    source => 'puppet:///module/appx/mycontent.txt'
+	}
+}
+
+
+service.pp
+
+class appx::service ($String $service $string $ensure) {
+  service { '$service':
+    ensure => $ensure,
+	enable => true,
+	
+}
+
+common.yml
+
+appx::config_file:mypackage:appx
+appx::config_file:ensure:1.0
+appx:service:service:appx
+appx:service:ensure:on
+
+
+
