@@ -1,4 +1,4 @@
-nit.pp ::---
+init.pp ::---
 class appx {
 
 contain appx::config_file
